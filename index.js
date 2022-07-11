@@ -1,13 +1,12 @@
-// const express = require('express');
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import Database from 'sqlite-async';
 import 'dotenv/config.js';
-import createError from 'http-errors';
 import indexRouter from './routes/index.js';
 import apiRouter from './routes/api/index.js';
+import {handleError} from './middleware/error-handler.middleware.js';
 
 const PORT = 3000;
 const __filename = fileURLToPath(import.meta.url);
@@ -30,13 +29,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
 
-// 404
-// app.use((req, res, next) => {
-//   res.status(404).send("Sorry can't find that!")
-// });
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-	next(createError(404));
+// NOT FOUND GLOBAL HANDLER
+app.use((req, res) => {
+	res.status(404).json({
+		success: 'false',
+		message: `Route ${req.url} with ${req.method} method is not found`,
+		error: {
+			statusCode: 404,
+			message: 'You reached a route that is not defined on this server',
+		},
+	});
+});
+
+// THROW ErrorHandler
+app.use((err, req, res, next) => {
+	handleError(err, res);
 });
 
 const listener = app.listen(process.env.PORT || PORT, () => {

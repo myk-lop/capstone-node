@@ -1,4 +1,5 @@
 import express from 'express';
+import {ErrorHandler} from '../../middleware/error-handler.middleware.js';
 const router = express.Router();
 
 // GET USERS
@@ -11,7 +12,8 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
 	const body = req.body;
 	console.log('Post users!', body);
-	res.send(`Post users! ${JSON.stringify(body)}`);
+	throw new ErrorHandler(500, "Error creating new user")
+	// res.send(`Post users! ${JSON.stringify(body)}`);
 });
 
 // USER

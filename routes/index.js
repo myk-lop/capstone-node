@@ -10,5 +10,4 @@ router.get('/', (req, res) => {
 	res.sendFile(path.join(path.join(__dirname + '/../views/index.html')));
 });
 
-// module.exports = router;
 export default router;
