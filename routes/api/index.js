@@ -1,7 +1,7 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 
-const usersRouter = require('./users');
+import usersRouter from './users.js';
 
 // router.get('/', (req, res) => {
 //     res.sendFile( path.join(path.join(__dirname + '/../../views/index.html')));
@@ -9,4 +9,5 @@ const usersRouter = require('./users');
 
 router.use('/users', usersRouter);
 
-module.exports = router;
+// module.exports = router;
+export default router;
