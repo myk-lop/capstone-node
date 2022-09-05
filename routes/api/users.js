@@ -1,55 +1,22 @@
+import {
+	createNewUser,
+	createUserExercise,
+	getAllUsers,
+	getUser,
+	getUserExercises,
+} from '../../controllers/users.controller.js';
 import express from 'express';
-import {ErrorHandler} from '../../middleware/error-handler.middleware.js';
+
 const router = express.Router();
 
-// GET USERS
-router.get('/', (req, res) => {
-	console.log('GET users!');
-	res.send('GET users!');
-});
-
-// CREATE NEW USER
-router.post('/', (req, res) => {
-	const body = req.body;
-	console.log('Post users!', body);
-	throw new ErrorHandler(500, "Error creating new user")
-	// res.send(`Post users! ${JSON.stringify(body)}`);
-});
-
-// USER
-router.post('/:_id', (req, res) => {
-	const params = req.params;
-	const id = params._id;
-
-	console.log('Post user!');
-	res.send(`Post user! ${id}`);
-});
+router.get('/', getAllUsers);
+router.get('/:_id', getUser);
+router.post('/', createNewUser);
 
 // USER EXERCISES
-router.post('/:_id/exercises', (req, res) => {
-	const params = req.params;
-	const id = params._id;
-	const body = req.body;
-
-	console.log('Post user EXERCISES!', body);
-	res.send(`Post user EXERCISES! ${JSON.stringify(body)}`);
-});
+router.post('/:_id/exercises', createUserExercise);
 
 // USER LOGS
-router.get('/:_id/logs', (req, res) => {
-	const query = req.query;
-	const id = req.params._id;
-
-	const from = query.from;
-	const to = query.to;
-	const limit = query.limit;
-
-	if (from && to && limit) {
-	}
-
-	console.log('Get user logs!');
-	console.log('query', query);
-	res.send(`Get user logs query! ${JSON.stringify(query)}`);
-});
+router.get('/:_id/logs', getUserExercises);
 
 export default router;
