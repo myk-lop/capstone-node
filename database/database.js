@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const DB_PATH = path.join(__dirname, 'app.db');
 
-console.log(DB_PATH);
+console.log("DB_PATH", DB_PATH);
 
 export const DB = await Database.open(DB_PATH);
 
