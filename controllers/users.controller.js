@@ -60,9 +60,10 @@ export const createNewUser = async (req, res) => {
 		} catch (err) {
 			if (err.code === 'SQLITE_CONSTRAINT') {
 				err.message = `User with a name '${user}' already exists`;
+				handleError(err, res, httpStatusCodes.BAD_REQUEST);
+			} else {
+				handleError(err, res);
 			}
-
-			handleError(err, res);
 		}
 	} else {
 		const err = new Error("Required param 'username' is not provided");

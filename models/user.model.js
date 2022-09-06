@@ -27,7 +27,7 @@ export class UserModel {
 	static async getUserExercisesLog(userId, from, to, limit = -1) {
 		await this.throwErrorIfUserNotExist(userId);
 
-		const sql = 'select * from exercises where userId = ? and date(date) BETWEEN ? AND ? LIMIT ?';
+		const sql = 'select * from exercises where userId = ? and date(date) BETWEEN ? AND ? ORDER BY date DESC LIMIT ?';
 		const countSql = 'select count(*) from exercises where userId = ? and date(date) BETWEEN ? AND ?';
 
 		const logs = await DB.all(sql, userId, from, to, limit);

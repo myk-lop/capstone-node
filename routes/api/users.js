@@ -14,7 +14,7 @@ router.get('/:_id', getUser);
 router.post('/', createNewUser);
 
 // USER EXERCISES
-router.post('/:_id/exercises', createUserExercise);
+router.post('/:_id?/exercises', createUserExercise);
 
 // USER LOGS
 router.get('/:_id/logs', getUserExercises);
